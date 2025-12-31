@@ -14,3 +14,4 @@ I’m interested in:
 
 → [Read my notes](/notes)  
 → [GitHub](https://github.com/amitrangra)
+→ [RSS](/feed.xml)

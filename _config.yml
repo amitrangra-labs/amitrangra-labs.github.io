@@ -1,0 +1,6 @@
+title: Amit Rangra
+description: Notes on IAM, backend systems, security automation, and AI
+url: https://amitrangra-labs.github.io
+
+plugins:
+  - jekyll-feed
