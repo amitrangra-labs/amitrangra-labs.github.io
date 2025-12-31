@@ -1,0 +1,30 @@
+body {
+  background: #0e1117;
+  color: #e6edf3;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont;
+  margin: 0;
+}
+
+.container {
+  max-width: 900px;
+  margin: auto;
+  padding: 80px 20px;
+}
+
+h1 {
+  font-size: 3rem;
+}
+
+a {
+  color: #58a6ff;
+  text-decoration: none;
+}
+
+.fade-in {
+  animation: fadeIn 0.8s ease forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
