@@ -2,40 +2,361 @@
   {
     "id": 1,
     "category": "IAM",
-    "question": "Exactly one IAM policy is misconfigured. Each policy makes a statement.",
-    "statements": {
-      "A": "Policy B allows excessive permissions.",
-      "B": "Policy C is misconfigured.",
-      "C": "Policy B is correct."
-    },
-    "choices": ["A", "B", "C"],
-    "answer": "B",
-    "explanation": "If B were correct, C would be lying, causing contradiction. Therefore B must be misconfigured."
+    "question": "Which OAuth2 flow is most appropriate for a Single Page Application (SPA) without a backend?",
+    "choices": ["Client Credentials", "Authorization Code with PKCE", "Implicit Flow", "Resource Owner Password Credentials"],
+    "answer": "Authorization Code with PKCE",
+    "explanation": "Implicit Flow is deprecated due to security risks; PKCE provides a secure way to exchange codes for tokens without a client secret."
   },
   {
     "id": 2,
-    "category": "Software Engineering",
-    "question": "One service violates an invariant. The faulty service always lies.",
-    "statements": {
-      "A": "Retries are idempotent.",
-      "B": "Timeouts are configured correctly.",
-      "C": "Retries are causing duplication."
-    },
-    "choices": ["A", "B", "C"],
-    "answer": "C",
-    "explanation": "Only assuming C is faulty keeps all statements consistent."
+    "category": "IAM",
+    "question": "In the context of AWS IAM, what is the 'Principal' in a policy?",
+    "choices": ["The resource being accessed", "The action being performed", "The entity (user/role) allowed or denied access", "The condition for the policy"],
+    "answer": "The entity (user/role) allowed or denied access",
+    "explanation": "The Principal defines 'who' is being granted or denied the permissions specified in the policy."
   },
   {
     "id": 3,
+    "category": "IAM",
+    "question": "What is the primary difference between RBAC and ABAC?",
+    "choices": ["RBAC uses passwords; ABAC uses biometrics", "RBAC uses roles; ABAC uses attributes like location or department", "ABAC is faster than RBAC", "RBAC is only for cloud environments"],
+    "answer": "RBAC uses roles; ABAC uses attributes like location or department",
+    "explanation": "Attribute-Based Access Control (ABAC) allows for more granular, dynamic policies based on user, resource, and environmental attributes."
+  },
+  {
+    "id": 4,
+    "category": "IAM",
+    "question": "Which OIDC claim is typically used to uniquely identify a user?",
+    "choices": ["email", "sub", "name", "aud"],
+    "answer": "sub",
+    "explanation": "The 'sub' (subject) claim is a unique identifier for the user within the issuer's system."
+  },
+  {
+    "id": 5,
+    "category": "IAM",
+    "question": "What is 'JIT Provisioning' in the context of SAML?",
+    "choices": ["Just-In-Time: Creating a user account the first time they log in via SSO", "Joint-Identity-Trust: A protocol for syncing passwords", "Just-In-Time: Revoking access immediately upon termination", "JSON-Identity-Token"],
+    "answer": "Just-In-Time: Creating a user account the first time they log in via SSO",
+    "explanation": "JIT provisioning automates account creation using the information passed in the SAML assertion."
+  },
+  {
+    "id": 6,
+    "category": "IAM",
+    "question": "Which of these is a 'Factor' in Multi-Factor Authentication (MFA)?",
+    "choices": ["Something you know", "Something you have", "Something you are", "All of the above"],
+    "answer": "All of the above",
+    "explanation": "MFA relies on combining knowledge (password), possession (phone), or inherence (fingerprint)."
+  },
+  {
+    "id": 7,
+    "category": "IAM",
+    "question": "What does a 'Scoping' policy usually achieve?",
+    "choices": ["Limits the maximum permissions a user can have", "Increases the speed of API calls", "Encodes the user's password", "Determines the UI theme"],
+    "answer": "Limits the maximum permissions a user can have",
+    "explanation": "Scoping (or Permission Boundaries) acts as a guardrail to ensure users cannot escalate their own privileges."
+  },
+  {
+    "id": 8,
+    "category": "IAM",
+    "question": "What is the primary purpose of a 'Refresh Token'?",
+    "choices": ["To bypass the login screen", "To obtain a new access token without re-authenticating", "To change the user's password", "To clear the browser cache"],
+    "answer": "To obtain a new access token without re-authenticating",
+    "explanation": "Refresh tokens allow the client to maintain access when short-lived access tokens expire."
+  },
+  {
+    "id": 9,
+    "category": "IAM",
+    "question": "In a Federation, who is the Service Provider (SP)?",
+    "choices": ["The entity providing the user identity", "The application the user wants to access", "The internet service provider", "The database administrator"],
+    "answer": "The application the user wants to access",
+    "explanation": "The Identity Provider (IdP) authenticates the user, and the SP provides the service/application."
+  },
+  {
+    "id": 10,
+    "category": "IAM",
+    "question": "What is a 'Confused Deputy' problem?",
+    "choices": ["An admin forgetting a password", "A service being tricked into using its permissions to act on behalf of an attacker", "A database synchronization error", "Two users having the same username"],
+    "answer": "A service being tricked into using its permissions to act on behalf of an attacker",
+    "explanation": "It occurs when an entity with higher privileges is manipulated into performing an unauthorized action for a less-privileged entity."
+  },
+  {
+    "id": 11,
+    "category": "IAM",
+    "question": "Which header is standard for sending a JWT in an API request?",
+    "choices": ["X-Token", "Authorization", "Cookie", "Identity"],
+    "answer": "Authorization",
+    "explanation": "JWTs are typically sent in the Authorization header using the 'Bearer' scheme."
+  },
+  {
+    "id": 12,
+    "category": "IAM",
+    "question": "What does 'Least Privilege' mean?",
+    "choices": ["Giving users no access at all", "Giving users only the access necessary to perform their job", "Giving all users admin access to avoid errors", "Deleting inactive accounts"],
+    "answer": "Giving users only the access necessary to perform their job",
+    "explanation": "Minimal access reduces the 'blast radius' if a credential is compromised."
+  },
+  {
+    "id": 13,
+    "category": "IAM",
+    "question": "What is the 'audience' (aud) claim in a JWT used for?",
+    "choices": ["Identifying the issuer", "Identifying the intended recipient of the token", "Defining the user's age", "Listing the user's roles"],
+    "answer": "Identifying the intended recipient of the token",
+    "explanation": "The recipient should check the 'aud' claim to ensure the token was meant for them."
+  },
+  {
+    "id": 14,
+    "category": "IAM",
+    "question": "Which protocol is primarily used for directory services?",
+    "choices": ["LDAP", "OAuth", "SAML", "HTTPS"],
+    "answer": "LDAP",
+    "explanation": "Lightweight Directory Access Protocol is the standard for accessing and maintaining distributed directory information."
+  },
+  {
+    "id": 15,
+    "category": "IAM",
+    "question": "What is a 'Salt' in the context of password hashing?",
+    "choices": ["A random string added to the password before hashing", "A way to encrypt the database", "A secondary password", "A physical hardware key"],
+    "answer": "A random string added to the password before hashing",
+    "explanation": "Salting ensures that two users with the same password will have different hashes, protecting against rainbow table attacks."
+  },
+  {
+    "id": 16,
+    "category": "Software Engineering",
+    "question": "What is the time complexity of searching for an element in a balanced Binary Search Tree?",
+    "choices": ["O(1)", "O(n)", "O(log n)", "O(n log n)"],
+    "answer": "O(log n)",
+    "explanation": "A balanced BST halves the search area with each comparison."
+  },
+  {
+    "id": 17,
+    "category": "Software Engineering",
+    "question": "In Git, what does 'rebasing' do?",
+    "choices": ["Combines two branches and creates a merge commit", "Deletes the branch history", "Moves or combines a sequence of commits to a new base commit", "Uploads code to the server"],
+    "answer": "Moves or combines a sequence of commits to a new base commit",
+    "explanation": "Rebasing creates a linear history by applying local commits on top of the latest upstream changes."
+  },
+  {
+    "id": 18,
+    "category": "Software Engineering",
+    "question": "Which principle suggests that a class should have only one reason to change?",
+    "choices": ["Liskov Substitution", "Single Responsibility", "Interface Segregation", "Dependency Inversion"],
+    "answer": "Single Responsibility",
+    "explanation": "The SRP (part of SOLID) states that a module/class should be responsible to only one actor or have one purpose."
+  },
+  {
+    "id": 19,
+    "category": "Software Engineering",
+    "question": "What is 'Idempotency' in the context of HTTP methods?",
+    "choices": ["The method is fast", "Making multiple identical requests has the same effect as a single request", "The method can only be called once", "The method returns JSON"],
+    "answer": "Making multiple identical requests has the same effect as a single request",
+    "explanation": "PUT and DELETE are examples of idempotent methods; POST is typically not."
+  },
+  {
+    "id": 20,
+    "category": "Software Engineering",
+    "question": "Which design pattern provides a way to access the elements of an aggregate object sequentially?",
+    "choices": ["Singleton", "Factory", "Iterator", "Observer"],
+    "answer": "Iterator",
+    "explanation": "The Iterator pattern abstracts the traversal logic away from the collection itself."
+  },
+  {
+    "id": 21,
+    "category": "Software Engineering",
+    "question": "What is the 'CAP Theorem' concerned with?",
+    "choices": ["Consistency, Availability, and Partition Tolerance", "Code, Architecture, and Performance", "Caching, Analytics, and Processing", "Concurrency, Allocation, and Parallelism"],
+    "answer": "Consistency, Availability, and Partition Tolerance",
+    "explanation": "It states that a distributed system can only provide two of these three guarantees simultaneously."
+  },
+  {
+    "id": 22,
+    "category": "Software Engineering",
+    "question": "What is 'Technical Debt'?",
+    "choices": ["The cost of cloud hosting", "The implied cost of additional rework caused by choosing an easy solution now", "Money owed to third-party vendors", "The time spent in meetings"],
+    "answer": "The implied cost of additional rework caused by choosing an easy solution now",
+    "explanation": "Choosing 'quick and dirty' code creates debt that must be paid back with interest (refactoring) later."
+  },
+  {
+    "id": 23,
+    "category": "Software Engineering",
+    "question": "In a SQL database, what does ACID stand for?",
+    "choices": ["Atomicity, Consistency, Isolation, Durability", "Access, Control, Identity, Data", "Automated, Current, Indexed, Distributed", "Always, Correct, Instant, Detailed"],
+    "answer": "Atomicity, Consistency, Isolation, Durability",
+    "explanation": "These properties guarantee that database transactions are processed reliably."
+  },
+  {
+    "id": 24,
+    "category": "Software Engineering",
+    "question": "What is 'Blue-Green Deployment'?",
+    "choices": ["Testing code on different operating systems", "A technique that reduces downtime by running two identical production environments", "Coding in two different languages", "Deploying only during daylight hours"],
+    "answer": "A technique that reduces downtime by running two identical production environments",
+    "explanation": "One environment (Green) is live, while the other (Blue) is staged with new code before switching traffic."
+  },
+  {
+    "id": 25,
+    "category": "Software Engineering",
+    "question": "What is the purpose of 'Dependency Injection'?",
+    "choices": ["To speed up the application", "To decouple objects from their dependencies", "To inject viruses into the system", "To automate documentation"],
+    "answer": "To decouple objects from their dependencies",
+    "explanation": "It allows objects to receive their dependencies from an external source rather than creating them internally, aiding testability."
+  },
+  {
+    "id": 26,
+    "category": "Software Engineering",
+    "question": "What is a 'Race Condition'?",
+    "choices": ["Competing to finish a sprint", "When the outcome depends on the timing of uncontrollable events like thread execution order", "A fast-running loop", "When two developers edit the same file"],
+    "answer": "When the outcome depends on the timing of uncontrollable events like thread execution order",
+    "explanation": "Race conditions occur when multiple threads access shared data and try to change it at the same time."
+  },
+  {
+    "id": 27,
+    "category": "Software Engineering",
+    "question": "Which testing level focuses on individual units of source code?",
+    "choices": ["Integration Testing", "System Testing", "Unit Testing", "Acceptance Testing"],
+    "answer": "Unit Testing",
+    "explanation": "Unit testing verifies that the smallest testable parts of an application work as intended."
+  },
+  {
+    "id": 28,
+    "category": "Software Engineering",
+    "question": "What is a 'Microservices' architecture?",
+    "choices": ["One large application with many developers", "An application structured as a collection of loosely coupled services", "Using small computers for servers", "A style of coding using very short functions"],
+    "answer": "An application structured as a collection of loosely coupled services",
+    "explanation": "Each service runs a unique process and communicates via lightweight mechanisms (often APIs)."
+  },
+  {
+    "id": 29,
+    "category": "Software Engineering",
+    "question": "What does 'DRY' stand for in programming?",
+    "choices": ["Don't Repeat Yourself", "Data Recovery Yield", "Dynamic Resource Yield", "Document Reality Yearly"],
+    "answer": "Don't Repeat Yourself",
+    "explanation": "The DRY principle aims to reduce repetition of software patterns by replacing them with abstractions."
+  },
+  {
+    "id": 30,
+    "category": "Software Engineering",
+    "question": "What is the function of a Load Balancer?",
+    "choices": ["To encrypt traffic", "To distribute incoming network traffic across multiple servers", "To store user passwords", "To compile code"],
+    "answer": "To distribute incoming network traffic across multiple servers",
+    "explanation": "Load balancing ensures no single server bears too much demand, improving reliability and performance."
+  },
+  {
+    "id": 31,
     "category": "Life Philosophy",
-    "question": "One belief is flawed. The flawed belief contradicts reality.",
-    "statements": {
-      "A": "Effort always guarantees success.",
-      "B": "Consistency compounds over time.",
-      "C": "Luck never matters."
-    },
-    "choices": ["A", "B", "C"],
-    "answer": "A",
-    "explanation": "Effort increases odds, but outcomes still depend on external variables."
+    "question": "What is the core focus of 'Stoicism'?",
+    "choices": ["Maximizing physical pleasure", "Distinguishing between what you can and cannot control", "Gaining political power", "Avoiding all human emotion"],
+    "answer": "Distinguishing between what you can and cannot control",
+    "explanation": "Stoics believe peace comes from focusing solely on our own thoughts and actions."
+  },
+  {
+    "id": 32,
+    "category": "Life Philosophy",
+    "question": "What is 'The Sunk Cost Fallacy'?",
+    "choices": ["Buying things when they are cheap", "Continuing an endeavor because of previously invested resources rather than current utility", "Saving money for the future", "Learning from past mistakes"],
+    "answer": "Continuing an endeavor because of previously invested resources rather than current utility",
+    "explanation": "People often feel compelled to 'get their money's worth' even when stopping would be more beneficial."
+  },
+  {
+    "id": 33,
+    "category": "Life Philosophy",
+    "question": "In the context of 'Nihilism', what is the common premise?",
+    "choices": ["Life is inherently meaningful", "Life has no intrinsic meaning or value", "Everything is predetermined", "Suffering is the only reality"],
+    "answer": "Life has no intrinsic meaning or value",
+    "explanation": "Nihilism suggests that traditional values and beliefs are unfounded and that existence is senseless."
+  },
+  {
+    "id": 34,
+    "category": "Life Philosophy",
+    "question": "What is the 'Dunning-Kruger Effect'?",
+    "choices": ["People with low ability overestimate their competence", "Smart people learn faster", "The fear of success", "The tendency to forget names"],
+    "answer": "People with low ability overestimate their competence",
+    "explanation": "A cognitive bias where people lack the self-awareness to recognize their own incompetence."
+  },
+  {
+    "id": 35,
+    "category": "Life Philosophy",
+    "question": "What does the concept of 'Ikigai' represent?",
+    "choices": ["A Japanese method for organizing a house", "A 'reason for being' at the intersection of passion, mission, vocation, and profession", "A style of martial arts", "A form of minimalist diet"],
+    "answer": "A 'reason for being' at the intersection of passion, mission, vocation, and profession",
+    "explanation": "It describes the balance of finding something you love, are good at, the world needs, and you can be paid for."
+  },
+  {
+    "id": 36,
+    "category": "Life Philosophy",
+    "question": "What is 'Existentialism' primarily concerned with?",
+    "choices": ["The structure of atoms", "Individual freedom, choice, and creating one's own meaning", "Religious laws", "Biological evolution"],
+    "answer": "Individual freedom, choice, and creating one's own meaning",
+    "explanation": "Existentialists believe 'existence precedes essence'—we exist first and then define ourselves through our choices."
+  },
+  {
+    "id": 37,
+    "category": "Life Philosophy",
+    "question": "What is 'Occam's Razor'?",
+    "choices": ["A tool for shaving", "The principle that the simplest explanation is usually the correct one", "The idea that life is sharp and painful", "A complex mathematical proof"],
+    "answer": "The principle that the simplest explanation is usually the correct one",
+    "explanation": "When presented with competing hypotheses, one should prefer the one that makes the fewest assumptions."
+  },
+  {
+    "id": 38,
+    "category": "Life Philosophy",
+    "question": "What does 'Amor Fati' mean?",
+    "choices": ["A fear of death", "Love of one's fate", "Hate of the world", "The end of time"],
+    "answer": "Love of one's fate",
+    "explanation": "A Nietzschean concept suggesting we should embrace everything that happens in life, including suffering and loss."
+  },
+  {
+    "id": 39,
+    "category": "Life Philosophy",
+    "question": "What is the 'Hedonic Treadmill'?",
+    "choices": ["A high-intensity gym workout", "The tendency for humans to return to a baseline level of happiness despite major positive or negative events", "The pursuit of endless physical pleasure", "A way to measure cardiovascular health"],
+    "answer": "The tendency for humans to return to a baseline level of happiness despite major positive or negative events",
+    "explanation": "As a person makes more money or gains status, expectations and desires rise in tandem, resulting in no permanent gain in happiness."
+  },
+  {
+    "id": 40,
+    "category": "Life Philosophy",
+    "question": "What is 'Absurdism' according to Albert Camus?",
+    "choices": ["The belief that jokes are the meaning of life", "The conflict between humans searching for meaning and the 'silent', meaningless universe", "A focus on logical fallacies", "The study of strange animals"],
+    "answer": "The conflict between humans searching for meaning and the 'silent', meaningless universe",
+    "explanation": "Camus suggests we should embrace the absurd and live defiantly despite the lack of objective meaning."
+  },
+  {
+    "id": 41,
+    "category": "Life Philosophy",
+    "question": "What is 'The Trolley Problem' used to explore?",
+    "choices": ["Public transportation efficiency", "Ethical dilemmas and utilitarianism", "Mechanical engineering failures", "Urban planning"],
+    "answer": "Ethical dilemmas and utilitarianism",
+    "explanation": "It asks whether it is better to kill one person to save five, testing the limits of moral decision-making."
+  },
+  {
+    "id": 42,
+    "category": "Life Philosophy",
+    "question": "What is 'Mindfulness'?",
+    "choices": ["Being able to remember everything", "The quality of being present and fully engaged with the current moment", "Having a mind full of many ideas", "Thinking about the future"],
+    "answer": "The quality of being present and fully engaged with the current moment",
+    "explanation": "It involves observing thoughts and feelings without judgment from a distance."
+  },
+  {
+    "id": 43,
+    "category": "Life Philosophy",
+    "question": "What is 'The Pareto Principle'?",
+    "choices": ["The 80/20 rule: 80% of consequences come from 20% of causes", "A law about planetary motion", "The idea that everyone is equal", "A method for cooking pasta"],
+    "answer": "The 80/20 rule: 80% of consequences come from 20% of causes",
+    "explanation": "Often applied to productivity, where 20% of effort produces 80% of the results."
+  },
+  {
+    "id": 44,
+    "category": "Life Philosophy",
+    "question": "What is the 'Prisoner's Dilemma' a model for?",
+    "choices": ["Prison design", "Cooperation and competition in game theory", "Criminal law procedures", "Escaping from difficult situations"],
+    "answer": "Cooperation and competition in game theory",
+    "explanation": "It shows why two rational individuals might not cooperate, even if it appears in their best interest to do so."
+  },
+  {
+    "id": 45,
+    "category": "Life Philosophy",
+    "question": "What does 'Memento Mori' mean?",
+    "choices": ["Live for today", "Remember that you will die", "Never forget your past", "Death is an illusion"],
+    "answer": "Remember that you will die",
+    "explanation": "A reminder of the fleeting nature of life, used to encourage living virtuously and intentionally."
   }
 ]
