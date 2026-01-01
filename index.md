@@ -16,3 +16,18 @@ I’m interested in:
 → [Read my notes](/notes)  
 → [GitHub](https://github.com/amitrangra)  
 → [RSS](/feed.xml)
+
+
+
+<div class="puzzle-box">
+  <p class="puzzle-title">🧠 Tiny Logic Puzzle</p>
+
+  <p id="puzzle-question"></p>
+  <div id="puzzle-statements"></div>
+
+  <div id="puzzle-choices" class="choices"></div>
+
+  <p id="puzzle-result" class="puzzle-result"></p>
+</div>
+
+<script src="/assets/js/puzzles.js"></script>

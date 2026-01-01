@@ -1,0 +1,41 @@
+[
+  {
+    "id": 1,
+    "category": "IAM",
+    "question": "Exactly one IAM policy is misconfigured. Each policy makes a statement.",
+    "statements": {
+      "A": "Policy B allows excessive permissions.",
+      "B": "Policy C is misconfigured.",
+      "C": "Policy B is correct."
+    },
+    "choices": ["A", "B", "C"],
+    "answer": "B",
+    "explanation": "If B were correct, C would be lying, causing contradiction. Therefore B must be misconfigured."
+  },
+  {
+    "id": 2,
+    "category": "Software Engineering",
+    "question": "One service violates an invariant. The faulty service always lies.",
+    "statements": {
+      "A": "Retries are idempotent.",
+      "B": "Timeouts are configured correctly.",
+      "C": "Retries are causing duplication."
+    },
+    "choices": ["A", "B", "C"],
+    "answer": "C",
+    "explanation": "Only assuming C is faulty keeps all statements consistent."
+  },
+  {
+    "id": 3,
+    "category": "Life Philosophy",
+    "question": "One belief is flawed. The flawed belief contradicts reality.",
+    "statements": {
+      "A": "Effort always guarantees success.",
+      "B": "Consistency compounds over time.",
+      "C": "Luck never matters."
+    },
+    "choices": ["A", "B", "C"],
+    "answer": "A",
+    "explanation": "Effort increases odds, but outcomes still depend on external variables."
+  }
+]
