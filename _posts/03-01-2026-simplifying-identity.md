@@ -22,10 +22,14 @@ From my experience in the IT industry, following are the very high level identit
 - Customer identity (if you have external customers)
 - Application/service identity (if you host multiple apps/services)
 
-If I were to start with implementing employee identity for my (small) company, I would start with investing in a secure email provider to begin with like zoho,  proton etc and enable multi factor authentication. With this, I have already invested in a secure system that will keep up with ever growing security threats  
+If I were to start with implementing **employee identity** for my (small) company, I would start with investing in a secure email provider to begin with like zoho,  proton etc and enable multi factor authentication. With this, I have already invested in a secure system that will keep up with ever growing security threats  
 and also which will be highly available.  
 The next thing I will probably implement inhouse is a token generation mechanism, storing user/employee identities (emails) and email client.  
 The login flow for any employee will be enter email, send token to their email, employee accessing their email, clicking link in email with token and logged in the  
-company interanl sites. To keep things simple, the token and session cookie can be configured to live for 24 hours and every day the employee logins once and is able to access all internal sites (managing access is out of scope for this article).  
+company interanl sites. To keep things simple, the token and session cookie can be configured to live for 24 hours and every day the employee logins once and is able to access all internal sites ($\color{Red}{\textsf{managing access is out of scope for this article}}$).  
 
-As the employee strength grows, further simpler login mehcanism like push based login can be configured alongwith the email and token based login.
+As the employee strength grows, further simpler login mehcanism like push based login can be configured alongwith the email and token based login.  
+
+For **customer identity**, I would again rely on the customer providing and trusting their email provider and implement a similar login mechanism as for the employee.  
+
+For **application identity**, I would implement something on the lines of [spiffe](https://spiffe.io/) wherein there is never an overhead of maintaining thousands and ever growing application clients or certificates. There should be a central orchestrator that is able to validate the application/workload and issue relevant token that identifies the application ($\color{Red}{\textsf{what scopes/permissions the application can have is out of scope for this article}}$)
