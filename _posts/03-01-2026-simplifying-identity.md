@@ -1,35 +1,244 @@
-# Simplifying Identity (and its validation)  
+# Simplifying Identity (and Its Validation)
 
-Hello lovely reader, hope you are having an amazing life so far which is going to become ever so enriching once to complete reading this article.  
-  
-Now before my grey cells decay to such an extent that I forget how much I wanted to write this article, in 2026, I've finally started to draft it.  
-Now these are purely my thoughts witout any AI intervention.  
-  
-The notion of identity starts the moment someone is born. How the person is known and recoganised by different people, agencies, machines etc. may be the same  
-or may be different. Your name, face, eye color, hair color, body etc are some of the traits that you have which identify you while birth certificate, passport,  
-driving license etc are documents that you may get for some authority that can prove who you are to relevant entities.  
+## A Short Story — When Identity Becomes the Weakest Link
 
-In today's digital world, I feel its becoming hard to retain and remember such varied identities whos loss can cause a lot of disruption in your daily life.  
-If you cannot imagine a world wherein you have different identity card for each purpose then why is it that we need to identify differently to each website.  
+A small startup launched its product after months of hard work. With limited resources and an aggressive timeline, the team decided to build a simple in-house login system. Email and password seemed sufficient, and security could be “improved later.”
 
-I believe we have come to such a time wherein the investment is maintaining digital identities should be left to such players that have the right money, effort and  
-will to do so. If you are someone who want to identify your users, I strongly feel that creating an identity and its validation system from scratch is not  
-only a waster of financial and human resources but also way less secure as software security world is ever evolving and staying current with the security threats  
-is something the bigger players can do but for a new company, startup, it can be more of a blocker than an enabler of anything.  
-  
-From my experience in the IT industry, following are the very high level identity scenarios that I will focus on here:  
-- Employee identity
-- Customer identity (if you have external customers)
-- Application/service identity (if you host multiple apps/services)
+A few months in, a flaw in session handling was exploited. User accounts were compromised, internal systems were accessed, and trust was broken. Incident response consumed weeks. Customers demanded answers. Regulators asked questions.
 
-If I were to start with implementing **employee identity** for my (small) company, I would start with investing in a secure email provider to begin with like zoho,  proton etc and enable multi factor authentication. With this, I have already invested in a secure system that will keep up with ever growing security threats  
-and also which will be highly available.  
-The next thing I will probably implement inhouse is a token generation mechanism, storing user/employee identities (emails) and email client.  
-The login flow for any employee will be enter email, send token to their email, employee accessing their email, clicking link in email with token and logged in the  
-company interanl sites. To keep things simple, the token and session cookie can be configured to live for 24 hours and every day the employee logins once and is able to access all internal sites ($\color{Red}{\textsf{managing access is out of scope for this article}}$).  
+Left with little choice, the company migrated hastily to an expensive third-party IAM provider. The product survived, but engineering velocity slowed, costs increased, and identity became an opaque dependency rather than a controlled capability.
 
-As the employee strength grows, further simpler login mehcanism like push based login can be configured alongwith the email and token based login.  
+The lesson was clear: **identity is foundational infrastructure**. When it fails, everything built on top of it is at risk.
 
-For **customer identity**, I would again rely on the customer providing and trusting their email provider and implement a similar login mechanism as for the employee.  
+This article explores a simpler approach — one that focuses strictly on **identifying entities and validating identity proofs**, without combining identity with authorization or access control.
 
-For **application identity**, I would implement something on the lines of [spiffe](https://spiffe.io/) wherein there is never an overhead of maintaining thousands and ever growing application clients or certificates. There should be a central orchestrator that is able to validate the application/workload and issue relevant token that identifies the application ($\color{Red}{\textsf{what scopes/permissions the application can have is out of scope for this article}}$)
+---
+
+## Scope and Intent
+
+This article addresses only:
+
+- Identifying an entity (human or service)
+- Validating proof of that identity
+- Doing so in a stateless, protocol-agnostic manner
+
+Out of scope:
+
+- Authorization and permissions
+- Roles, scopes, or policy evaluation
+- OAuth2, OIDC, SAML, or session orchestration
+
+---
+
+## What Is Identity?
+
+Identity is the ability to assert and verify *who* or *what* an entity is.
+
+In digital systems, identity validation is achieved through cryptographic proof. This article limits identity to two primitives:
+
+- **Identification** — claiming an identifier
+- **Validation** — proving control over that identifier
+
+No assumptions are made about what the validated identity may access.
+
+---
+
+## Design Principles
+
+The identity system described here follows these principles:
+
+1. Stateless verification
+2. Clear identity proof boundaries
+3. Minimal surface area
+4. Fixed and predictable token lifetime
+5. Separation from authorization concerns
+
+The system is built on:
+
+- Email ownership for human identities
+- Cryptographically signed, time-bound tokens
+- Verifiable workload identity for services
+
+---
+
+## Identity Establishment Using Email
+
+Email ownership is treated as proof of identity. If an entity can receive and act on a message sent to an email address, control over that identity is established.
+
+### Identity Flow
+
+1. An email address is provided.
+2. A secure token is generated.
+3. A login link containing the token is emailed.
+4. The link is opened.
+5. The token is validated.
+6. A fixed-lifetime identity token is issued.
+
+---
+
+### Email Login Flow Diagram
+
+```
++-----------+        +----------------+        +------------+
+|  Browser  |        | Identity Logic |        |   Email    |
++-----------+        +----------------+        +------------+
+     |                       |                        |
+     | Enter email           |                        |
+     +---------------------->|                        |
+     |                       | Generate token         |
+     |                       |----------------------->|
+     |                       | Send email             |
+     |                       |<-----------------------|
+     | Click login link      |                        |
+     +---------------------->| Validate token         |
+     |                       | Issue identity token   |
+     |<----------------------|                        |
+     | Store token in cookie |                        |
+```
+
+---
+
+### Identity Token Model
+
+The issued token is self-contained and signed.
+
+Typical claims:
+
+| Claim | Description |
+|------|-------------|
+| `sub` | Identity (email or service ID) |
+| `iat` | Issued-at timestamp |
+| `exp` | Expiry timestamp |
+| `jti` | Unique token identifier |
+
+Tokens contain no authorization data.
+
+---
+
+### Token Lifetime and Validation
+
+Identity tokens have a fixed expiration window (e.g., 24 hours).
+
+- Tokens are validated on every request
+- Tokens are not refreshed automatically
+- Expired tokens require identity re-validation
+
+This guarantees a bounded identity proof window.
+
+---
+
+### Stateless Request Validation
+
+```
+[Client] ---> Request + Identity Token ---> [Service]
+                                      |
+                         Verify signature & expiry
+                                      |
+                               Valid -> Continue
+                               Invalid -> Reject
+```
+
+No server-side session state is required.
+
+---
+
+## Identity Use Cases
+
+Identity requirements differ by entity type. The same validation principles apply, but the proof mechanism varies.
+
+---
+
+### Employee Identity
+
+Employees require access to internal systems, dashboards, and tooling.
+
+**Approach**
+
+- Email address represents employee identity
+- Identity is validated via secure email token
+- Fixed-lifetime identity token is issued
+- Downstream systems consume the validated identity
+
+**Benefits**
+
+- No password storage
+- No protocol coupling
+- Identity validation remains auditable and simple
+
+---
+
+### Customer Identity
+
+Customers may be external, anonymous initially, and diverse in scale.
+
+**Approach**
+
+- Email remains the primary identity anchor
+- Magic-link login validates identity ownership
+- Stateless tokens represent validated customer identity
+- Authorization decisions remain external to identity validation
+
+**Benefits**
+
+- Reduced attack surface
+- Simple onboarding experience
+- No dependency on third-party IAM unless needed later
+
+---
+
+### Application and Service Identity
+
+Non-human actors require identity as well.
+
+**Approach**
+
+- Each service or workload is assigned a unique identity
+- Identity is validated using signed service tokens or workload identity systems
+- Tokens are short-lived and verifiable
+- Mutual trust is established cryptographically
+
+**Example Flow**
+
+```
+[Service A] ---> Signed Identity Token ---> [Service B]
+                                   |
+                          Verify signature & expiry
+                                   |
+                             Trust identity
+```
+
+**Benefits**
+
+- No shared secrets
+- No long-lived credentials
+- Clear machine identity boundaries
+
+---
+
+## Security Considerations
+
+| Area | Mitigation |
+|----|------------|
+| Password attacks | Passwords not used |
+| Token replay | Limited by fixed expiry |
+| Token leakage | HTTPS and secure cookies |
+| Identity sprawl | Single identity primitive |
+
+---
+
+## Identity vs Authorization
+
+This system establishes *who* an entity is, not *what* it can do.
+
+Authorization, permissions, and access control are intentionally decoupled and left to downstream systems.
+
+---
+
+## Conclusion
+
+Identity does not need to be complex to be reliable.
+
+By focusing strictly on identity identification and validation — using email ownership for humans and signed tokens for services — systems can avoid fragile, over-engineered IAM solutions while retaining strong security guarantees.
+
+This identity layer can later integrate with any authorization or policy engine without modification.  
+As the user base scales, simpler frictionless authentication methods like push-based login could also be integrated alongside the existing email and token systems. This allows to simplify the user experience while maintaining robust, multi-layered security.  
